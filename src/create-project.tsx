@@ -3,7 +3,8 @@ import { readdirSync, mkdirSync } from "node:fs"
 import { resolve } from "node:path";
 import { homedir } from "node:os"; 
 import { useState } from "react";
-import { create } from "node:domain";
+
+import { showToast, Toast, open, closeMainWindow, popToRoot } from "@raycast/api";
 
 // const FOLDERS = readdirSync(resolve(`${homedir}/Developer`), {withFileTypes: true}).map((entry) => {
 //   return {
@@ -24,7 +25,16 @@ const FOLDERS = readdirSync(resolve(`${homedir}/Developer`), {withFileTypes: tru
 export default function Command() {
   const [searchText, setSearchText] = useState("")
   const createProject = (folderName) => {
-    mkdirSync(resolve(`${homedir}/Developer`) + `/${folderName}` )
+    let folder = resolve(`${homedir}/Developer`) + `/${folderName}` 
+    mkdirSync(folder)
+
+    showToast({
+      style: Toast.Style.Success,
+      title: "Project created"
+    })
+
+    open(folder, "com.microsoft.VSCode")
+    popToRoot({clearSearchBar: true})
   } 
 
 
