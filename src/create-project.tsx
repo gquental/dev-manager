@@ -35,7 +35,7 @@ export default function Command() {
       title: "Project created"
     })
 
-    open(folder, "com.cursor.Cursor")
+    open(folder, "com.todesktop.230313mzl4w4u92")
     popToRoot({clearSearchBar: true})
   } 
 
@@ -83,7 +83,7 @@ export default function Command() {
           subtitle={item.path}
           actions={
             <ActionPanel>
-              <Action.Open target={item.path} title="Open Project" application="com.cursor.Cursor" />
+              <Action.Open target={item.path} title="Open Project" application="com.todesktop.230313mzl4w4u92" />
               <Action
                 title="Deletar Projeto"
                 icon={Icon.Trash}
