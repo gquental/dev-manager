@@ -6,12 +6,7 @@ import { useState } from "react";
 
 import { showToast, Toast, open, closeMainWindow, popToRoot } from "@raycast/api";
 
-// const FOLDERS = readdirSync(resolve(`${homedir}/Developer`), {withFileTypes: true}).map((entry) => {
-//   return {
-//     id: entry,
-//     title: entry
-//   }
-// })
+
 
 const FOLDERS = readdirSync(resolve(`${homedir}/Developer`), {withFileTypes: true}).filter(entry => entry.isDirectory()).map(entry => {
   return {
@@ -24,7 +19,7 @@ const FOLDERS = readdirSync(resolve(`${homedir}/Developer`), {withFileTypes: tru
 
 export default function Command() {
   const [searchText, setSearchText] = useState("")
-  const createProject = (folderName) => {
+  const createProject = (folderName: string) => {
     let folder = resolve(`${homedir}/Developer`) + `/${folderName}` 
     mkdirSync(folder)
 
@@ -33,7 +28,9 @@ export default function Command() {
       title: "Project created"
     })
 
-    open(folder, "com.microsoft.VSCode")
+
+
+    open(folder, "com.todesktop.230313mzl4w4u92")
     popToRoot({clearSearchBar: true})
   } 
 
@@ -52,7 +49,7 @@ export default function Command() {
           subtitle={item.path}
           actions={
             <ActionPanel>
-              <Action.Open target={item.path} title="Open Project" application="com.microsoft.VSCode" />
+              <Action.Open target={item.path} title="Open Project" application="com.todesktop.230313mzl4w4u92" />
             </ActionPanel>
           }
         />
