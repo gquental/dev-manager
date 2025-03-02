@@ -1,5 +1,5 @@
 import { ActionPanel, Action, Icon, List, Image, confirmAlert } from "@raycast/api";
-import { readdirSync, mkdirSync, rmSync } from "node:fs"
+import { readdirSync, mkdirSync, rmSync, statSync } from "node:fs"
 import { resolve } from "node:path";
 import { homedir } from "node:os"; 
 import { useState, useCallback } from "react";
@@ -10,12 +10,16 @@ const getFolders = () => {
   return readdirSync(resolve(`${homedir}/Developer`), {withFileTypes: true})
     .filter(entry => entry.isDirectory())
     .map(entry => {
+      const fullPath = resolve(`${homedir}/Developer`, entry.name);
+      const stats = statSync(fullPath);
       return {
         id: entry.name,
         title: entry.name,
-        path: entry.path + "/" + entry.name
+        path: fullPath,
+        lastModified: stats.mtime
       }
-    });
+    })
+    .sort((a, b) => b.lastModified.getTime() - a.lastModified.getTime());
 };
 
 export default function Command() {
